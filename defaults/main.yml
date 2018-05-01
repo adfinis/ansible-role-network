@@ -27,17 +27,23 @@ network_interfaces: []
 # .. code-block:: YAML
 #
 #   network_interfaces:
+#     # a normal interface with a static IPv4 and IPv6 address
 #     - device: eth0
 #       tmpl: ethernet
 #       hwaddress: 00:11:22:33:44:55
 #       force: True  # enforce that the configuration will be written
 #       ipv4:
-#         type: static
 #         addr: 192.0.2.10
 #         mask: 255.255.255.0
 #       ipv6:
-#         type: static
 #         addr: 2001:db8::10
 #         mask: 64
 #       ipv4_gateway: 192.0.2.1
 #       ipv6_gateway: 2001:db8::1
+#     # a interface which has no configuration at all
+#     - device: eth1
+#       tmpl: ethernet
+#     # a interface which will get the information from dhcp
+#     - device: eth1
+#       tmpl: ethernet
+#       ipv4_dhcp: True
