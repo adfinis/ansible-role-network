@@ -3,68 +3,66 @@
 auto {{ item.device }}
 allow-hotplug {{ item.device }}
 
-{% if item.ipv4 is defined %}
-iface {{ item.device }} inet {{ item.ipv4.type }}
-{% if item.ipv4.type == 'static' %}
+{% if item.ipv4_dhcp | default(False) %}
+iface {{ item.device }} inet dhcp
+{% elif item.ipv4 | default(False) %}
+iface {{ item.device }} inet static
     address     {{ item.ipv4.addr }}
-    netmask     {{ item.ipv4.mask | d("255.255.255.0") }}
-{% if item.ipv4_gateway is defined %}
+    netmask     {{ item.ipv4.mask | default("255.255.255.0") }}
+{% if item.ipv4_gateway | default(False) %}
     gateway     {{ item.ipv4_gateway }}
 {% endif %}
-{% endif %}
-{% if item.hwaddress | d(False) %}
+{% if item.hwaddress | default(False) %}
     hwaddress   {{ item.hwaddress }}
 {% endif %}
-{% if item.ipv4.pre_up | d() %}
+{% if item.ipv4.pre_up | default() %}
     pre-up      {{ item.ipv4.pre_up }}
 {% endif %}
-{% if item.ipv4.up | d() %}
+{% if item.ipv4.up | default() %}
     up          {{ item.ipv4.up }}
 {% endif %}
-{% if item.ipv4.post_up | d() %}
+{% if item.ipv4.post_up | default() %}
     post-up     {{ item.ipv4.post_up }}
 {% endif %}
-{% if item.ipv4.pre_down | d() %}
+{% if item.ipv4.pre_down | default() %}
     pre-down    {{ item.ipv4.pre_down }}
 {% endif %}
-{% if item.ipv4.down | d() %}
+{% if item.ipv4.down | default() %}
     down        {{ item.ipv4.down }}
 {% endif %}
-{% if item.ipv4.post_down | d() %}
+{% if item.ipv4.post_down | default() %}
     post-down   {{ item.ipv4.post_down }}
 {% endif %}
 {% else %}
 iface {{ item.device }} inet manual
 {% endif %}
 
-{% if item.ipv6 is defined %}
-iface {{ item.device }} inet6 {{ item.ipv6.type }}
-{% if item.ipv6.type == 'static' %}
+{% if item.ipv6 | default(False) %}
+iface {{ item.device }} inet6 static
     address     {{ item.ipv6.addr }}
-    netmask     {{ item.ipv6.mask | d("64") }}
-{% if item.ipv6_gateway is defined %}
+    netmask     {{ item.ipv6.mask | default("64") }}
+{% if item.ipv6_gateway | default(False) %}
     gateway     {{ item.ipv6_gateway }}
 {% endif %}
-{% endif %}
-{% if item.hwaddress | d(False) %}
+{% if item.hwaddress | default(False) %}
     hwaddress   {{ item.hwaddress }}
 {% endif %}
-{% if item.ipv6.pre_up | d() %}
+{% if item.ipv6.pre_up | default() %}
     pre-up      {{ item.ipv6.pre_up }}
 {% endif %}
-{% if item.ipv6.up | d() %}
+{% if item.ipv6.up | default() %}
     up          {{ item.ipv6.up }}
 {% endif %}
-{% if item.ipv6.post_up | d() %}
+{% if item.ipv6.post_up | default() %}
     post-up     {{ item.ipv6.post_up }}
 {% endif %}
-{% if item.ipv6.pre_down | d() %}
+{% if item.ipv6.pre_down | default() %}
     pre-down    {{ item.ipv6.pre_down }}
 {% endif %}
-{% if item.ipv6.down | d() %}
+{% if item.ipv6.down | default() %}
     down        {{ item.ipv6.down }}
 {% endif %}
-{% if item.ipv6.post_down | d() %}
+{% if item.ipv6.post_down | default() %}
     post-down   {{ item.ipv6.post_down }}
 {% endif %}
 {% else %}
