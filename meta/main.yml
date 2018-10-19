@@ -3,6 +3,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: network
   author: 'Adfinis SyGroup AG'
   description: 'Configure and manage ip addresses and routes'
   company: 'Adfinis SyGroup AG'
