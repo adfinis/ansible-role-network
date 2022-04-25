@@ -47,3 +47,7 @@ network_interfaces: []
 #     - device: eth1
 #       tmpl: ethernet
 #       ipv4_dhcp: True
+#     # a interface which configured automaticly
+#     - device: eth1
+#       tmpl: ethernet
+#       ipv6_auto: True

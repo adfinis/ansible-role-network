@@ -41,6 +41,8 @@ iface {{ item.device }} inet manual
 iface {{ item.device }} inet6 static
     address     {{ item.ipv6.addr }}
     netmask     {{ item.ipv6.mask | default("64") }}
+{% elif item.ipv6_auto | default(False) %}
+iface {{ item.device }} inet6 auto
 {% if item.ipv6_gateway | default(False) %}
     gateway     {{ item.ipv6_gateway }}
 {% endif %}
